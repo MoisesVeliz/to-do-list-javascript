@@ -1,12 +1,12 @@
 let inputNewTask = document.querySelector('#input-new-task');
 const btnNewTask = document.querySelector('#btn-new-task'),
 	  bodyTask = document.querySelector('#body-task'),
-	  btnEditTask = document.querySelector('#btn-edit-task');
+	  btnEditTask = document.querySelector('#btn-edit-task'),
+	  buttonDisabled = document.querySelector('#button-disabled');
 	  
-let newTask = '',
-	flatEdit = false;
+let newTask = '';
 
-// Ecentos para crear una tarea nueva
+// Eventos para crear una tarea nueva.
 btnNewTask.addEventListener('click', () => createTask());
 inputNewTask.addEventListener('keyup', (event) => event.keyCode == 13 &&  !btnNewTask.classList.contains('hide') ? createTask(): false);
 
@@ -20,38 +20,42 @@ bodyTask.addEventListener('click', event =>{
 		bodyTask.removeChild(task);
 		checkTask();
 	}else if ( event.target.attributes[0].value === "far fa-edit" ) {
-		flatEdit = true;
 		btnEditTask.classList.remove('hide');
 		btnNewTask.classList.add('hide');
 		inputNewTask.value = taskEdit;
 		task.classList.add('editing');
+		activeDisabled();
 	}
 });
 
-// Evento para guardar lo editado
-btnEditTask.addEventListener('click', ()=> saveChanges());
-inputNewTask.addEventListener('keyup', (event) => event.keyCode == 13 &&  btnNewTask.classList.contains('hide') ? saveChanges(): false);
+// Evento para guardar Las tareas editadas.
+btnEditTask.addEventListener('click', ()=> {
+	saveChanges();
+	activeDisabled();
+});
+inputNewTask.addEventListener('keyup', (event) => {
+	if( event.keyCode == 13 &&  btnNewTask.classList.contains('hide') ) {
+		saveChanges();
+		activeDisabled();
+	}
+});
 
-// Funciones
-const saveChanges =() => {
-	document.querySelector('.editing').children[0].children[1].innerText = inputNewTask.value;
-	document.querySelector('.editing').classList.remove('editing');
-	btnEditTask.classList.add('hide');
-	btnNewTask.classList.remove('hide');
-	clearInput();
-};
 
-const createTask = () => {
-	newTask = addTask();
-	createElement( newTask );
-	clearInput();
-	checkTask();
-};
+// Funciones.
+const activeDisabled =()=>{
+	const btnsArray = bodyTask.querySelectorAll('button');
+	btnsArray.forEach(btn =>{
+		btn.classList.toggle('disabled');
+	});
+}
 
 const addTask = () => {
 	if( !inputNewTask.value ) return;
 	return inputNewTask.value;
-};
+}
+
+// Esta funcion me verifia si tengo tareas, si no tengo tareas me da un mensaje de que no tengo tareas disponibles.
+const checkTask = () => bodyTask.children.length > 1 ? bodyTask.children[0].classList.add('hide') : bodyTask.children[0].classList.remove('hide');
 
 const createElement = (element) => {
 	if ( !element ) return;
@@ -65,15 +69,28 @@ const createElement = (element) => {
 										<button class="btn-edit btn__task btn-floating btn-small waves-effect waves-light right"><i class="far fa-edit"></i></button>	
 									</label>
 									<div class="divider"></div`;
-};
+}
 
-// Esta funcion me verifia si tengo tareas, si no tengo tareas me da un mensaje de que no tendgo tareas disponivles.
-const checkTask = () => bodyTask.children.length > 1 ? bodyTask.children[0].classList.add('hide') : bodyTask.children[0].classList.remove('hide');
-
+const createTask = () => {
+	newTask = addTask();
+	createElement( newTask );
+	clearInput();
+	checkTask();
+}
 
 const clearInput = () => inputNewTask.value = '';
 
+const editTitleList = ()=> {
+	
+}
+
 const init = () => {
 	checkTask();
-
-};
+}
+const saveChanges =() => {
+	document.querySelector('.editing').children[0].children[1].innerText = inputNewTask.value;
+	document.querySelector('.editing').classList.remove('editing');
+	btnEditTask.classList.add('hide');
+	btnNewTask.classList.remove('hide');
+	clearInput();
+}
