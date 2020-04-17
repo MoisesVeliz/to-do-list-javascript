@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>To do list app</title>
+	<link rel="stylesheet" href="../../../../Curso diseño web/Bibliotecas para el desarrollo/Materialize/css/materialize/css/materialize.min.css">
+	<link rel="stylesheet" href="../../../../Curso diseño web/Bibliotecas para el desarrollo/fontawesome-free-5.12.1-web/css/all.min.css">
+	<link rel="stylesheet" href="css/toDoList.css">
+</head>
+<body>
+<!-- container-app
+		|_app
+			|_lista
+				|_header
+				|	|_titulo
+				|	|_
+				|	|_iconos
+				|
+				|_body
+					|_tareas
+						|_titulo
+						|_checkbox
+						|_botones -->
+	<div class="container-app">
+		<div class="app">
+			<div class="list card">
+				<div class="header">
+					<p class="header__title">Crear mi lista de tareas</p>
+					<div class="header__new-task input-field">
+						<input id="input-new-task" type="text" class="autocomplete">
+						<label for="input-new-task">Write the new task...</label>
+						<button id="btn-new-task" role="button"  class=" btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="fas fa-plus "></i></button>
+						<button id="btn-edit-task" role="button"  class="btn-floating btn-large halfway-fab waves-effect waves-light green hide"><i class="fas fa-save"></i></button>	
+					</div>
+				</div>
+				<div id="body-task" class="body">
+					<p class="red-text text-lighten-3">No tienes tareas pendientes.</p>
+				</div>
+				<div class="footer"></div>
+			</div>
+		</div>
+	</div>
+
+	
+	<!-- Codigo de java script -->
+	<script src="../../../../Curso diseño web/Bibliotecas para el desarrollo/Materialize/css/materialize/js/materialize.min.js"></script>
+	<script src="js/toDoList.js"></script>
+</body>
+</html>
