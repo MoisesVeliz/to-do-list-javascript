@@ -34,6 +34,7 @@
 }
 
 .header__title {
+  display: block;
   font-family: Roboto, cursive;
   font-size: 2em;
   color: #fff;

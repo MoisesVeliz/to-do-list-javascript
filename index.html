@@ -26,7 +26,11 @@
 		<div class="app">
 			<div class="list card">
 				<div class="list__header">
-					<p class="header__title">Crear mi lista de tareas</p>
+					<div class="header__input input-field hide">
+						<input id="input-title" type="text" class="autocomplete">
+						<label for="input-title"></label>
+					</div>
+					<label for="input-title" class="header__title">Click para cambiar el nombre</label>
 					<div class="header__new-task input-field">
 						<input id="input-new-task" type="text" class="autocomplete">
 						<label for="input-new-task">Write the new task...</label>

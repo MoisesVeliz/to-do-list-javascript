@@ -2,9 +2,32 @@ let inputNewTask = document.querySelector('#input-new-task');
 const btnNewTask = document.querySelector('#btn-new-task'),
 	  bodyTask = document.querySelector('#body-task'),
 	  btnEditTask = document.querySelector('#btn-edit-task'),
-	  buttonDisabled = document.querySelector('#button-disabled');
+	  buttonDisabled = document.querySelector('#button-disabled'),
+	  headerTitle = document.querySelector('.header__title'),
+	  headerInput = document.querySelector('.header__input');
 	  
 let newTask = '';
+
+// Evento para cambiar el titulo de mi tarea
+headerTitle.addEventListener('click', ()=>{
+	headerInput.children[1].innerText = headerTitle.innerText;
+	headerInput.classList.remove('hide');
+	headerTitle.classList.add('hide');
+});
+headerInput.children[0].addEventListener('blur',()=>{
+	if( !headerInput.children[0].value ) return;
+	headerTitle.innerText = headerInput.children[0].value;
+	headerInput.classList.add('hide');
+	headerTitle.classList.remove('hide');
+});
+headerInput.children[0].addEventListener('keyup',(event)=>{
+	if( !headerInput.children[0].value ) return;
+	if( event.keyCode == 13 ){
+		headerTitle.innerText = headerInput.children[0].value;
+		headerInput.classList.add('hide');
+		headerTitle.classList.remove('hide');
+	}
+});
 
 // Eventos para crear una tarea nueva.
 btnNewTask.addEventListener('click', () => createTask());
@@ -41,7 +64,7 @@ inputNewTask.addEventListener('keyup', (event) => {
 });
 
 
-// Funciones.
+// Funciones-----------------------------
 const activeDisabled =()=>{
 	const btnsArray = bodyTask.querySelectorAll('button');
 	btnsArray.forEach(btn =>{
